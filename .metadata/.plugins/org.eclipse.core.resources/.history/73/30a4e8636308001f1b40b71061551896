@@ -1,0 +1,24 @@
+package com.work.community.service;
+
+import org.springframework.stereotype.Service;
+
+import com.work.community.dto.EventDTO;
+import com.work.community.entity.Event;
+import com.work.community.repository.EventRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class EventService {
+
+	private final EventRepository eventRepository;
+
+	public Event addEvent(EventDTO eventDTO) {
+		Event event;
+		event = Event.addEventDTO(eventDTO);
+		eventRepository.save(event);
+		return event;
+	}
+	
+}

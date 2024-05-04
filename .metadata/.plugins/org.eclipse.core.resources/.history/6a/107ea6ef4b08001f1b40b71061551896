@@ -1,0 +1,15 @@
+package com.work.community.service;
+
+import org.springframework.stereotype.Service;
+
+import com.work.community.repository.EventRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class EventService {
+
+	private final EventRepository eventRepository;
+	
+}

@@ -1,0 +1,5 @@
+package com.work.community.controller;
+
+public class EventService {
+
+}

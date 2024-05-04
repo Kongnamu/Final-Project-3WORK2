@@ -1,0 +1,48 @@
+package com.work.community.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.work.community.dto.EventDTO;
+import com.work.community.entity.Event;
+import com.work.community.repository.EventRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class EventService {
+
+	private final EventRepository eventRepository;
+	
+	//이벤트 생성
+	public Event addEvent(EventDTO eventDTO) {
+		Event event;
+		event = Event.addEventDTO(eventDTO);
+		eventRepository.save(event);
+		return event;
+	}
+	
+	// 이벤트 출력 - 이벤트 필터링
+    public List<Event> getAllEvents(EventDTO eventDTO) {
+        LocalDateTime startDateTime = eventDTO.getStartDateTime();
+        LocalDateTime endDateTime = eventDTO.getEndDateTime();
+        
+        // 시작 날짜와 끝 날짜 사이의 이벤트를 조회
+        List<Event> events = 
+        		eventRepository.findByStartDateTimeBetweenAndEndDateTimeBetween
+        		(startDateTime, endDateTime);
+        return events;
+    }
+
+    // 이벤트 출력 - 모든 이벤트 조회
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
+    }
+
+	
+}
